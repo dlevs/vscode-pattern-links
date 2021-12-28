@@ -1,4 +1,6 @@
-# Decorator Sample
+![Pattern links icon](./icon.png)
+
+# Pattern Links
 
 This folder contains a sample VS code extension that demonstrates the editor decorator API.
 
@@ -16,13 +18,13 @@ The sample code show the usage of the vscode.[`TextEditor.setDecorations`](https
 
 ## Running the Sample
 
-* `npm install` to initialize the project
-* `npm run watch` to start the compiler in watch mode
-* open this folder in VS Code and press `F5`
-* this will open the `[Extension Development Host]` window, running the extension:
-  * Open any document that contains single and multi-digit numbers.
-  * The extension will decorate single and multiple-digit numbers as shown in the screenshot above.
-  * In the user settings, add
+- `npm install` to initialize the project
+- `npm run watch` to start the compiler in watch mode
+- open this folder in VS Code and press `F5`
+- this will open the `[Extension Development Host]` window, running the extension:
+  - Open any document that contains single and multi-digit numbers.
+  - The extension will decorate single and multiple-digit numbers as shown in the screenshot above.
+  - In the user settings, add
     ```
     "workbench.colorCustomizations": {
         "myextension.largeNumberBackground": "#ff00ff"

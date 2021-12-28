@@ -1,14 +1,6 @@
 import * as vscode from "vscode";
 import { LinkDefinitionProvider } from "./LinkDefinitionProvider";
-
-// TODO: Move
-interface Config {
-  rules: {
-    linkPattern: string;
-    linkTarget: string;
-    filePattern: string;
-  }[];
-}
+import { Config } from "./types";
 
 const EXTENSION_NAME = "patternlinks";
 
