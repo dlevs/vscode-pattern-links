@@ -1,48 +1,69 @@
 {
-	"name": "decorator-sample",
-	"description": "Sample for the decorator API",
-	"version": "0.0.1",
-	"publisher": "vscode-samples",
-	"license": "MIT",
-	"engines": {
-		"vscode": "^1.32.0"
-	},
-	"repository": {
-		"url": "https://github.com/Microsoft/vscode-extension-samples"
-	},
-	"categories": [
-		"Other"
-	],
-	"activationEvents": [
-		"*"
-	],
-	"main": "./out/extension.js",
-	"contributes": {
-		"colors": [
-			{
-				"id": "myextension.largeNumberBackground",
-				"description": "Background decoration color for large numbers",
-				"defaults": {
-					"dark": "#FF000055",
-					"light": "#FF000055",
-					"highContrast": "#FF000055"
-				}
-			}
-		]
-	},
-	"scripts": {
-		"vscode:prepublish": "npm run compile",
-		"compile": "tsc -p ./",
-		"lint": "eslint . --ext .ts,.tsx",
-		"watch": "tsc -watch -p ./"
-	},
-	"devDependencies": {
-		"@types/node": "^12.12.0",
-		"@types/vscode": "^1.32.0",
-		"@typescript-eslint/eslint-plugin": "^4.16.0",
-		"@typescript-eslint/parser": "^4.16.0",
-		"eslint": "^7.21.0",
-		"prettier": "^2.5.1",
-		"typescript": "^4.4.3"
-	}
+  "name": "pattern-links",
+  "description": "Create links for regex patterns",
+  "version": "0.0.1",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.32.0"
+  },
+  "repository": {
+    "url": "https://github.com/Microsoft/vscode-extension-samples"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "*"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "configuration": {
+      "type": "object",
+      "title": "Pattern Links",
+      "properties": {
+        "patternlinks.rules": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "linkPattern": {
+                "type": "string",
+                "markdownDescription": "A RegExp used to find text in the document to turn into links. \n\nExample: `(ISSUES-\\d+)`\n\nThe example pattern would match text like `ISSUE-1` and `ISSUE-200`. Brackets go around any part of the pattern that will be needed to construct the final link URL.",
+                "default": ""
+              },
+              "linkTarget": {
+                "type": "string",
+                "markdownDescription": "The link template.\n\nExample: `https://myorg.atlassian.net/browse/$1`\n\nIn the example, `$1` will be replaced with the captured text from the linkPattern; the final URL might be `https://myorg.atlassian.net/browse/ISSUE-200`.",
+                "default": ""
+              },
+              "filePattern": {
+                "type": "string",
+                "markdownDescription": "A [glob pattern](https://code.visualstudio.com/api/references/vscode-api#GlobPattern) of files to enable this rule for.\n\nExample: `**/*.{md,txt}`\n\nIn the example the rule is only for Markdown and plain text files. By default, the rule is enabled for all files."
+              }
+            },
+            "additionalProperties": false
+          },
+          "default": [],
+          "markdownDescription": "a list of rules for turning text into clickable links.",
+          "additionalItems": false
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "lint": "eslint . --ext .ts,.tsx",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/node": "^12.12.0",
+    "@types/vscode": "^1.32.0",
+    "@typescript-eslint/eslint-plugin": "^4.16.0",
+    "@typescript-eslint/parser": "^4.16.0",
+    "eslint": "^7.21.0",
+    "eslint-config-prettier": "^8.3.0",
+    "prettier": "^2.5.1",
+    "typescript": "^4.4.3"
+  }
 }

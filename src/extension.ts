@@ -1,19 +1,46 @@
 import * as vscode from "vscode";
 import { LinkDefinitionProvider } from "./LinkDefinitionProvider";
 
-export function activate(context: vscode.ExtensionContext) {
-  const documentSelector = [
-    // { scheme: 'file', language: 'markdown' },
-    // { scheme: 'file', language: 'mdx' },
-    { language: "markdown" },
-    { language: "mdx" },
-    { language: "typescript" },
-  ];
+// TODO: Move
+interface Config {
+  rules: {
+    linkPattern: string;
+    linkTarget: string;
+    filePattern: string;
+  }[];
+}
 
-  context.subscriptions.push(
-    vscode.languages.registerDocumentLinkProvider(
-      documentSelector,
-      new LinkDefinitionProvider()
-    )
-  );
+const EXTENSION_NAME = "patternlinks";
+
+let activeRules: vscode.Disposable[] = [];
+
+export function activate(context: vscode.ExtensionContext): void {
+  initFromConfig(context);
+
+  vscode.workspace.onDidChangeConfiguration((event) => {
+    if (event.affectsConfiguration(EXTENSION_NAME)) {
+      initFromConfig(context);
+    }
+  });
+}
+
+function initFromConfig(context: vscode.ExtensionContext): void {
+  const config = vscode.workspace
+    .getConfiguration()
+    .get(EXTENSION_NAME) as Config;
+
+  for (const rule of activeRules) {
+    rule.dispose();
+  }
+
+  activeRules = config.rules.map((rule) => {
+    return vscode.languages.registerDocumentLinkProvider(
+      [{ scheme: "file", pattern: rule.filePattern || undefined }],
+      new LinkDefinitionProvider(rule.linkPattern, rule.linkTarget)
+    );
+  });
+
+  for (const rule of activeRules) {
+    context.subscriptions.push(rule);
+  }
 }
