@@ -1,33 +1,30 @@
-![Pattern links icon](./icon.png)
+![Pattern links icon](./assets/icon.png)
 
 # Pattern Links
 
-This folder contains a sample VS code extension that demonstrates the editor decorator API.
+**Pattern Links** is a plugin that automatically turns text into links based upon a regex pattern. Here's how it looks:
 
-The sample creates a decoration for each number that appears in the active editor. It
-demonstrates some of the decorator features such as borders, background colors, cursors
-and hovers.
+![Animated gif showing a code comment that has a link that can be clicked](./assets/usage.gif)
 
-The sample also shows the use of a user defined themeable color. Instead of hardcoding a color value this allows users (and themes) to redefine the color in the user settings.
+In the example above, the text `ISSUE-299` was automatically turned into a link by using the following config in VS Code:
 
-![sample](preview.png)
-
-## VSCode API
-
-The sample code show the usage of the vscode.[`TextEditor.setDecorations`](https://code.visualstudio.com/api/references/vscode-api#TextEditor.setDecorations) and [`vscode.window.createTextEditorDecorationType`](https://code.visualstudio.com/api/references/vscode-api#window.createTextEditorDecorationType) APIs as well as the `colors` contribution point.
-
-## Running the Sample
-
-- `npm install` to initialize the project
-- `npm run watch` to start the compiler in watch mode
-- open this folder in VS Code and press `F5`
-- this will open the `[Extension Development Host]` window, running the extension:
-  - Open any document that contains single and multi-digit numbers.
-  - The extension will decorate single and multiple-digit numbers as shown in the screenshot above.
-  - In the user settings, add
-    ```
-    "workbench.colorCustomizations": {
-        "myextension.largeNumberBackground": "#ff00ff"
+```json
+{
+  "patternlinks.rules": [
+    {
+      "linkPattern": "ISSUE-\\d+",
+      "linkTarget": "https://myorg.atlassian.net/browse/$0"
     }
-    ```
-    to customize the large number decoration color.
+  ]
+}
+```
+
+## Development setup
+
+1. `npm install` to initialize the project
+2. `npm run watch` to start the compiler in watch mode
+3. Open this folder in VS Code and start the debugger (`F5`).
+
+## Usage
+
+See [the usage document](./USAGE.md).

@@ -17,7 +17,7 @@
   "activationEvents": [
     "*"
   ],
-  "icon": "./icon.png",
+  "icon": "./assets/icon.png",
   "keywords": [
     "link",
     "pattern",
