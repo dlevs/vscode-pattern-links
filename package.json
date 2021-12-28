@@ -15,9 +15,9 @@
     "Other"
   ],
   "activationEvents": [
-    "*"
+    "onStartupFinished"
   ],
-  "icon": "./assets/icon.png",
+  "icon": "assets/icon.png",
   "keywords": [
     "link",
     "pattern",
@@ -68,7 +68,7 @@
   },
   "devDependencies": {
     "@types/node": "^17.0.5",
-    "@types/vscode": "^1.63.1",
+    "@types/vscode": "^1.32.0",
     "@typescript-eslint/eslint-plugin": "^5.8.1",
     "@typescript-eslint/parser": "^5.8.1",
     "eslint": "^8.5.0",

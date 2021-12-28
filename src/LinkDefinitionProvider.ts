@@ -36,7 +36,7 @@ export class LinkDefinitionProvider implements vscode.DocumentLinkProvider {
       );
       const decoration: vscode.DocumentLink = {
         range,
-        target: vscode.Uri.parse(url, true),
+        target: vscode.Uri.parse(url),
       };
       links.push(decoration);
     }
