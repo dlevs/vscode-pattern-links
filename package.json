@@ -2,7 +2,7 @@
   "name": "pattern-links",
   "displayName": "Link Patterns",
   "description": "Automatically turn text into links based upon regex patterns.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "publisher": "DanLevett",
   "license": "MIT",
   "engines": {
