@@ -1,4 +1,4 @@
-<img src="assets/icon.png" alt="Pattern links icon" width="120"/>
+<img src="assets/icon.png" alt="Pattern links icon" width="200"/>
 
 # Pattern Links
 
