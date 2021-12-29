@@ -1,8 +1,8 @@
 {
   "name": "pattern-links",
-  "displayName": "Pattern Links",
-  "description": "Create links using regex patterns",
-  "version": "0.0.7",
+  "displayName": "Link Patterns",
+  "description": "Automatically turn text into links based upon regex patterns.",
+  "version": "0.0.8",
   "publisher": "DanLevett",
   "license": "MIT",
   "engines": {
