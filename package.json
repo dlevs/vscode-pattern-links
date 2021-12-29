@@ -46,16 +46,19 @@
                 "markdownDescription": "The link template.\n\nExample: `https://myorg.atlassian.net/browse/$0`\n\nIn the example, `$0` will be replaced with the captured text from the linkPattern; the final URL might be `https://myorg.atlassian.net/browse/ISSUE-200`.",
                 "default": ""
               },
-              "filePattern": {
-                "type": "string",
-                "markdownDescription": "A [glob pattern](https://code.visualstudio.com/api/references/vscode-api#GlobPattern) of files to enable this rule for.\n\nExample: `**/*.{md,txt}`\n\nIn the example the rule is only for Markdown and plain text files. By default, the rule is enabled for all files."
+              "languages": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "markdownDescription": "An array of languages to enable this rule for.\n\nExample: `[\"plaintext\", \"markdown\"]`\n\nIf no languages are specified, the rule is enabled for all languages."
+                },
+                "default": []
               }
             },
             "additionalProperties": false
           },
           "default": [],
-          "markdownDescription": "a list of rules for turning text into clickable links.",
-          "additionalItems": false
+          "markdownDescription": "A list of rules for turning text into clickable links."
         }
       }
     }

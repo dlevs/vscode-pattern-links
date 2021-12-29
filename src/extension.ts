@@ -26,8 +26,14 @@ function initFromConfig(context: vscode.ExtensionContext): void {
   }
 
   activeRules = config.rules.map((rule) => {
+    let { languages } = rule;
+
+    if (!languages.length) {
+      languages = ["*"];
+    }
+
     return vscode.languages.registerDocumentLinkProvider(
-      [{ scheme: "file", pattern: rule.filePattern || undefined }],
+      languages.map((language) => ({ language })),
       new LinkDefinitionProvider(rule.linkPattern, rule.linkTarget)
     );
   });

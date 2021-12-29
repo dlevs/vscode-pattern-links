@@ -13,14 +13,16 @@ Multiple patterns can be defined in your VS Code settings. The following example
   "patternlinks.rules": [
     {
       "linkPattern": "ISSUE-\\d+",
-      "linkTarget": "https://myorg.atlassian.net/browse/$0",
-      "filePattern": "**/*.{md,txt}" // Only markdown and plain text files
+      "linkTarget": "https://myorg.atlassian.net/browse/$0"
       // Example URL: https://myorg.atlassian.net/browse/ISSUE-299
     },
     {
       "linkPattern": "(FOO|BAR)-(\\d+)",
-      "linkTarget": "https://example.com/$1/$2"
+      "linkTarget": "https://example.com/$1/$2",
       // Example URL: https://example.com/FOO/123
+
+      // Limit to specific languages
+      "languages": ["plaintext", "markdown"]
     },
     {
       "linkPattern": "SKU([A-Z_]+)",
