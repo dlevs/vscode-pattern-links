@@ -1,12 +1,12 @@
 # Pattern Links
 
-**Pattern Links** is a plugin that automatically turns text into links based upon a regex pattern.
+**Pattern Links** is a plugin that automatically turns text into links based upon regex patterns.
 
 ![Animated gif showing a code comment that has a link that can be clicked](assets/usage.gif)
 
 ## Configuration
 
-Multiple rules can be defined in you VS Code settings. The following examples highlight common use cases.
+Multiple patterns can be defined in your VS Code settings. The following examples highlight common use cases.
 
 ```js
 {

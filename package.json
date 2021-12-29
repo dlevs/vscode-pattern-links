@@ -2,7 +2,7 @@
   "name": "pattern-links",
   "displayName": "Pattern Links",
   "description": "Create links using regex patterns",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "publisher": "DanLevett",
   "license": "MIT",
   "engines": {
