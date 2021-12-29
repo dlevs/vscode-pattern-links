@@ -1,5 +1,3 @@
-<img src="assets/icon.png" alt="Pattern links icon" width="200"/>
-
 # Pattern Links
 
 **Pattern Links** is a plugin that automatically turns text into links based upon a regex pattern.
@@ -10,7 +8,7 @@
 
 Multiple rules can be defined in you VS Code settings. The following examples highlight common use cases.
 
-```json
+```js
 {
   "patternlinks.rules": [
     {
@@ -25,7 +23,7 @@ Multiple rules can be defined in you VS Code settings. The following examples hi
       // Example URL: https://example.com/FOO/123
     },
     {
-      "linkPattern": "SKU(\\d+)",
+      "linkPattern": "SKU([A-Z_]+)",
       "linkTarget": "https://shop.com?search=$1&min-price=\\$1"
       // Example URL: https://shop.com?search=PRODUCT_CODE&min-price=$1
       // Here, `\` is being used as an escape character to prevent substitution
