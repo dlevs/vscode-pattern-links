@@ -35,6 +35,10 @@
           "type": "array",
           "items": {
             "type": "object",
+            "required": [
+              "linkPattern",
+              "linkTarget"
+            ],
             "properties": {
               "linkPattern": {
                 "type": "string",
@@ -48,9 +52,9 @@
               },
               "languages": {
                 "type": "array",
+                "markdownDescription": "An array of languages to enable this rule for.\n\nExample: `[\"plaintext\", \"markdown\"]`\n\nIf no languages are specified, the rule is enabled for all languages.",
                 "items": {
-                  "type": "string",
-                  "markdownDescription": "An array of languages to enable this rule for.\n\nExample: `[\"plaintext\", \"markdown\"]`\n\nIf no languages are specified, the rule is enabled for all languages."
+                  "type": "string"
                 },
                 "default": []
               }
@@ -83,6 +87,7 @@
     "glob": "^7.2.0",
     "mocha": "^9.1.3",
     "prettier": "^2.5.1",
+    "type-fest": "^2.8.0",
     "typescript": "^4.5.4"
   }
 }

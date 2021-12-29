@@ -1,8 +1,6 @@
 import * as vscode from "vscode";
+import { EXTENSION_NAME, getConfig } from "./config";
 import { LinkDefinitionProvider } from "./LinkDefinitionProvider";
-import { Config } from "./types";
-
-const EXTENSION_NAME = "patternlinks";
 
 let activeRules: vscode.Disposable[] = [];
 
@@ -17,23 +15,15 @@ export function activate(context: vscode.ExtensionContext): void {
 }
 
 function initFromConfig(context: vscode.ExtensionContext): void {
-  const config = vscode.workspace
-    .getConfiguration()
-    .get(EXTENSION_NAME) as Config;
+  const config = getConfig();
 
   for (const rule of activeRules) {
     rule.dispose();
   }
 
   activeRules = config.rules.map((rule) => {
-    let { languages } = rule;
-
-    if (!languages.length) {
-      languages = ["*"];
-    }
-
     return vscode.languages.registerDocumentLinkProvider(
-      languages.map((language) => ({ language })),
+      rule.languages.map((language) => ({ language })),
       new LinkDefinitionProvider(rule.linkPattern, rule.linkTarget)
     );
   });
