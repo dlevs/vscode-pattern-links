@@ -13,7 +13,7 @@ export class LinkDefinitionProvider implements vscode.DocumentLinkProvider {
   }
 
   public provideDocumentLinks(
-    document: vscode.TextDocument
+    document: Pick<vscode.TextDocument, "getText" | "positionAt">
   ): vscode.ProviderResult<vscode.DocumentLink[]> {
     const regEx = new RegExp(this.pattern, "g");
     const text = document.getText();
@@ -27,13 +27,16 @@ export class LinkDefinitionProvider implements vscode.DocumentLinkProvider {
       // Replace:
       // - $0 with match[0]
       // - $1 with match[1]
+      // - \$1 with $1 (respect escape character)
       // - ...etc
-      const url = this.targetTemplate.replace(
-        /\$(\d)/g,
-        (indexMatch, index) => {
-          return (match as RegExpExecArray)[Number(index)];
-        }
-      );
+      const url = this.targetTemplate
+        .replace(/(^|[^\\])\$(\d)/g, (indexMatch, nonEscapeChar, index) => {
+          return (
+            nonEscapeChar +
+            ((match as RegExpExecArray)[Number(index)] ?? `$${index}`)
+          );
+        })
+        .replace(/\\\$/g, "$");
       const decoration: vscode.DocumentLink = {
         range,
         target: vscode.Uri.parse(url),

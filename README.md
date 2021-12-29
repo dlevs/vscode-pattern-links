@@ -2,18 +2,34 @@
 
 # Pattern Links
 
-**Pattern Links** is a plugin that automatically turns text into links based upon a regex pattern. Here's how it looks:
+**Pattern Links** is a plugin that automatically turns text into links based upon a regex pattern.
 
 ![Animated gif showing a code comment that has a link that can be clicked](assets/usage.gif)
 
-In the example above, the text `ISSUE-299` was automatically turned into a link by using the following configuration in VS Code:
+## Configuration
+
+Multiple rules can be defined in you VS Code settings. The following examples highlight common use cases.
 
 ```json
 {
   "patternlinks.rules": [
     {
       "linkPattern": "ISSUE-\\d+",
-      "linkTarget": "https://myorg.atlassian.net/browse/$0"
+      "linkTarget": "https://myorg.atlassian.net/browse/$0",
+      "filePattern": "**/*.{md,txt}" // Only markdown and plain text files
+      // Example URL: https://myorg.atlassian.net/browse/ISSUE-299
+    },
+    {
+      "linkPattern": "(FOO|BAR)-(\\d+)",
+      "linkTarget": "https://example.com/$1/$2"
+      // Example URL: https://example.com/FOO/123
+    },
+    {
+      "linkPattern": "SKU(\\d+)",
+      "linkTarget": "https://shop.com?search=$1&min-price=\\$1"
+      // Example URL: https://shop.com?search=PRODUCT_CODE&min-price=$1
+      // Here, `\` is being used as an escape character to prevent substitution
+      // of the second `$1`.
     }
   ]
 }
