@@ -5,17 +5,23 @@ import * as vscode from "vscode";
  */
 export class LinkDefinitionProvider implements vscode.DocumentLinkProvider {
   private pattern: string;
+  private flags: string;
   private targetTemplate: string;
 
-  constructor(pattern: string, targetTemplate: string) {
+  constructor(pattern: string, flags: string, targetTemplate: string) {
     this.pattern = pattern;
     this.targetTemplate = targetTemplate;
+    this.flags = flags;
+
+    if (!this.flags.includes("g")) {
+      this.flags += "g";
+    }
   }
 
   public provideDocumentLinks(
     document: Pick<vscode.TextDocument, "getText" | "positionAt">
   ): vscode.ProviderResult<vscode.DocumentLink[]> {
-    const regEx = new RegExp(this.pattern, "g");
+    const regEx = new RegExp(this.pattern, this.flags);
     const text = document.getText();
     const links: vscode.DecorationOptions[] = [];
 

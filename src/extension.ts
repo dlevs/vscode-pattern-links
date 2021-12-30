@@ -24,7 +24,11 @@ function initFromConfig(context: vscode.ExtensionContext): void {
   activeRules = config.rules.map((rule) => {
     return vscode.languages.registerDocumentLinkProvider(
       rule.languages.map((language) => ({ language })),
-      new LinkDefinitionProvider(rule.linkPattern, rule.linkTarget)
+      new LinkDefinitionProvider(
+        rule.linkPattern,
+        rule.linkPatternFlags,
+        rule.linkTarget
+      )
     );
   });
 

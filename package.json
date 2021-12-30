@@ -45,6 +45,11 @@
                 "markdownDescription": "A regular expression used to find text in the document to turn into links.\n\nExample: `ISSUES-\\d+`\n\nThe example pattern would match text like `ISSUE-1` and `ISSUE-200`.",
                 "default": ""
               },
+              "linkPatternFlags": {
+                "type": "string",
+                "markdownDescription": "A list of [regular expression flags](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions#advanced_searching_with_flags) to use.\n\nExample: `is`\n\nThe example flags make the search case-insensitive (`i` flag) and allows the `.` character to match over multiple lines (`s` flag). The `g` flag is always applied.",
+                "default": ""
+              },
               "linkTarget": {
                 "type": "string",
                 "markdownDescription": "The link template.\n\nExample: `https://myorg.atlassian.net/browse/$0`\n\nIn the example, `$0` will be replaced with the captured text from the linkPattern; the final URL might be `https://myorg.atlassian.net/browse/ISSUE-200`.",

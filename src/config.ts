@@ -4,6 +4,7 @@ import type { PartialDeep } from "type-fest";
 interface Config {
   rules: {
     linkPattern: string;
+    linkPatternFlags: string;
     linkTarget: string;
     languages: string[];
   }[];
@@ -17,7 +18,12 @@ export function getConfig(): Config {
 
   return {
     rules: (config.rules ?? []).flatMap((rule) => {
-      let { linkPattern, linkTarget, languages = [] } = rule ?? {};
+      let {
+        linkPattern,
+        linkTarget,
+        linkPatternFlags = "",
+        languages = [],
+      } = rule ?? {};
 
       // If required values are missing, filter this entire
       // rule out.
@@ -33,6 +39,7 @@ export function getConfig(): Config {
       return {
         linkPattern,
         linkTarget,
+        linkPatternFlags,
         // Remove null / undefined
         languages: languages.flatMap((language) => {
           return !language ? [] : language;
