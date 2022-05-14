@@ -1,38 +1,54 @@
 import * as vscode from "vscode";
-import { EXTENSION_NAME, getConfig } from "./config";
-import { LinkDefinitionProvider } from "./LinkDefinitionProvider";
+import * as config from "./config";
+import {
+  PatternDocumentLinkProvider,
+  PatternTerminalLinkProvider,
+} from "./PatternLinkProviders";
 
-let activeRules: vscode.Disposable[] = [];
+let activeProviders: vscode.Disposable[] = [];
 
 export function activate(context: vscode.ExtensionContext): void {
-  initFromConfig(context);
+  configureFromRules(context);
 
-  vscode.workspace.onDidChangeConfiguration((event) => {
-    if (event.affectsConfiguration(EXTENSION_NAME)) {
-      initFromConfig(context);
+  let configurationChangeHandle = vscode.workspace.onDidChangeConfiguration(
+    (event) => {
+      if (event.affectsConfiguration(config.EXTENSION_NAME)) {
+        configureFromRules(context);
+      }
     }
-  });
+  );
+  context.subscriptions.push(configurationChangeHandle);
 }
 
-function initFromConfig(context: vscode.ExtensionContext): void {
-  const config = getConfig();
-
-  for (const rule of activeRules) {
-    rule.dispose();
+function configureFromRules(context: vscode.ExtensionContext): void {
+  for (const provider of activeProviders) {
+    provider.dispose();
   }
+  activeProviders = [];
 
-  activeRules = config.rules.map((rule) => {
-    return vscode.languages.registerDocumentLinkProvider(
-      rule.languages.map((language) => ({ language })),
-      new LinkDefinitionProvider(
-        rule.linkPattern,
-        rule.linkPatternFlags,
-        rule.linkTarget
-      )
+  const rules = config.getRules();
+  const allLanguages = rules.flatMap((rule) => rule.languages ?? []);
+
+  for (const lang of allLanguages) {
+    let theseRules = rules.filter((rule) =>
+      (rule.languages ?? []).includes(lang)
     );
-  });
+    let lp = new PatternDocumentLinkProvider(theseRules);
+    let handle = vscode.languages.registerDocumentLinkProvider(
+      { language: lang },
+      lp
+    );
 
-  for (const rule of activeRules) {
-    context.subscriptions.push(rule);
+    activeProviders.push(handle);
   }
+
+  if (rules.some((r) => r.terminal)) {
+    let terminalRules = rules.filter((rule) => !!rule.terminal);
+    let tp = new PatternTerminalLinkProvider(terminalRules);
+    let handle = vscode.window.registerTerminalLinkProvider(tp);
+
+    activeProviders.push(handle);
+  }
+
+  context.subscriptions.push(...activeProviders);
 }

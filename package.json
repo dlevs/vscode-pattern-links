@@ -6,7 +6,7 @@
   "publisher": "DanLevett",
   "license": "MIT",
   "engines": {
-    "vscode": "^1.32.0"
+    "vscode": "^1.49.0"
   },
   "repository": {
     "url": "https://github.com/dlevs/vscode-pattern-links"
@@ -43,17 +43,17 @@
               "linkPattern": {
                 "type": "string",
                 "markdownDescription": "A regular expression used to find text in the document to turn into links.\n\nExample: `ISSUES-\\d+`\n\nThe example pattern would match text like `ISSUE-1` and `ISSUE-200`.",
-                "default": ""
+                "default": "LINK-\\d+"
               },
               "linkPatternFlags": {
                 "type": "string",
-                "markdownDescription": "A list of [regular expression flags](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions#advanced_searching_with_flags) to use.\n\nExample: `is`\n\nThe example flags make the search case-insensitive (`i` flag) and allows the `.` character to match over multiple lines (`s` flag). The `g` flag is always applied.",
-                "default": ""
+                "markdownDescription": "A list of [regular expression flags](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions#advanced_searching_with_flags) to use.\n\nExample: `is`\n\nThe example flags make the search case-insensitive (`i` flag) and allows the `.` character to match over multiple lines (`s` flag).",
+                "default": "i"
               },
               "linkTarget": {
                 "type": "string",
                 "markdownDescription": "The link template.\n\nExample: `https://myorg.atlassian.net/browse/$0`\n\nIn the example, `$0` will be replaced with the captured text from the linkPattern; the final URL might be `https://myorg.atlassian.net/browse/ISSUE-200`.",
-                "default": ""
+                "default": "https://example.net/link/$0"
               },
               "languages": {
                 "type": "array",
@@ -62,6 +62,11 @@
                   "type": "string"
                 },
                 "default": []
+              },
+              "terminal": {
+                "type": "boolean",
+                "markdownDescription": "Enable this rule in the integrated terminal.",
+                "default": "true"
               }
             },
             "additionalProperties": false
@@ -83,7 +88,7 @@
     "@types/glob": "^7.2.0",
     "@types/mocha": "^9.0.0",
     "@types/node": "^17.0.5",
-    "@types/vscode": "^1.32.0",
+    "@types/vscode": "^1.49.0",
     "@typescript-eslint/eslint-plugin": "^5.8.1",
     "@typescript-eslint/parser": "^5.8.1",
     "@vscode/test-electron": "^2.0.0",
