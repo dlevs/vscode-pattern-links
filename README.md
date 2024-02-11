@@ -4,6 +4,10 @@
 
 ![Animated gif showing a code comment that has a link that can be clicked](assets/usage.gif)
 
+## Status
+
+This project is no longer actively maintained. Its spiritual successor is [Regex Robin](https://github.com/dlevs/vscode-regex-robin), which does everything this extension does, and more.
+
 ## Configuration
 
 Multiple patterns can be defined in your VS Code settings. The following examples highlight common use cases.
